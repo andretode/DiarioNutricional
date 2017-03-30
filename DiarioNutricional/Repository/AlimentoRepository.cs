@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace DiarioNutricional.Repository
 {
@@ -21,14 +21,17 @@ namespace DiarioNutricional.Repository
 
             foreach (DataRow row in InformacoesNutricionaisDataSet.Tables[0].Rows)
             {
-                var informacoesNutricionais = new Alimento();
-                informacoesNutricionais.Codigo = Int32.Parse(row[0].ToString());
-                informacoesNutricionais.Descricao = row[1].ToString();
-                informacoesNutricionais.EnergiaKcal = Decimal.Parse(TratarValores(row[3].ToString()));
-                informacoesNutricionais.ProteinasEmGramas = Decimal.Parse(TratarValores(row[4].ToString()));
-                informacoesNutricionais.GordurasEmGramas = Decimal.Parse(TratarValores(row[5].ToString()));
-                informacoesNutricionais.CarboidratosEmGramas = Decimal.Parse(TratarValores(row[7].ToString()));
-                todosAlimentos.Add(informacoesNutricionais);
+                if (row[0] != null && row[0].ToString() != "")
+                {
+                    var informacoesNutricionais = new Alimento();
+                    informacoesNutricionais.Codigo = Int32.Parse(row[0].ToString());
+                    informacoesNutricionais.Descricao = row[1].ToString();
+                    informacoesNutricionais.EnergiaKcal = Decimal.Parse(TratarValores(row[3].ToString()));
+                    informacoesNutricionais.ProteinasEmGramas = Decimal.Parse(TratarValores(row[4].ToString()));
+                    informacoesNutricionais.GordurasEmGramas = Decimal.Parse(TratarValores(row[5].ToString()));
+                    informacoesNutricionais.CarboidratosEmGramas = Decimal.Parse(TratarValores(row[7].ToString()));
+                    todosAlimentos.Add(informacoesNutricionais);
+                }
             }
 
             return todosAlimentos;
@@ -39,6 +42,9 @@ namespace DiarioNutricional.Repository
             switch(valor)
             {
                 case "":
+                case "NA":
+                case "Tr":
+                case "*":
                     return "0,0";
                 default:
                     return valor;
