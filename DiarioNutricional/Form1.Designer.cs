@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgwInformacoesNutricionais = new System.Windows.Forms.DataGridView();
+            this.textBoxFiltroAlimento = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dgwPorcoesDoDia = new System.Windows.Forms.DataGridView();
+            this.porcaoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,29 +41,24 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alimentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.textBoxFiltroAlimento = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dgwPorcoesDoDia = new System.Windows.Forms.DataGridView();
             this.quantidadeEmGramasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescricaoAlimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantEnergiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantCarboidratosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantProteinasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantGordurasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.porcaoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.RefeicaoId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgwInformacoesNutricionais)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alimentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwPorcoesDoDia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.porcaoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.alimentoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dgwInformacoesNutricionais
             // 
             this.dgwInformacoesNutricionais.AllowUserToAddRows = false;
             this.dgwInformacoesNutricionais.AllowUserToDeleteRows = false;
-            this.dgwInformacoesNutricionais.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgwInformacoesNutricionais.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgwInformacoesNutricionais.AutoGenerateColumns = false;
             this.dgwInformacoesNutricionais.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -74,9 +73,52 @@
             this.dgwInformacoesNutricionais.Location = new System.Drawing.Point(12, 38);
             this.dgwInformacoesNutricionais.Name = "dgwInformacoesNutricionais";
             this.dgwInformacoesNutricionais.ReadOnly = true;
-            this.dgwInformacoesNutricionais.Size = new System.Drawing.Size(725, 190);
+            this.dgwInformacoesNutricionais.Size = new System.Drawing.Size(830, 190);
             this.dgwInformacoesNutricionais.TabIndex = 0;
             this.dgwInformacoesNutricionais.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwInformacoesNutricionais_CellDoubleClick);
+            // 
+            // textBoxFiltroAlimento
+            // 
+            this.textBoxFiltroAlimento.Location = new System.Drawing.Point(111, 12);
+            this.textBoxFiltroAlimento.Name = "textBoxFiltroAlimento";
+            this.textBoxFiltroAlimento.Size = new System.Drawing.Size(210, 20);
+            this.textBoxFiltroAlimento.TabIndex = 1;
+            this.textBoxFiltroAlimento.TextChanged += new System.EventHandler(this.textBoxFiltroAlimento_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Filtrar por Alimento";
+            // 
+            // dgwPorcoesDoDia
+            // 
+            this.dgwPorcoesDoDia.AllowUserToAddRows = false;
+            this.dgwPorcoesDoDia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgwPorcoesDoDia.AutoGenerateColumns = false;
+            this.dgwPorcoesDoDia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwPorcoesDoDia.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.quantidadeEmGramasDataGridViewTextBoxColumn,
+            this.DescricaoAlimento,
+            this.quantEnergiaDataGridViewTextBoxColumn,
+            this.quantCarboidratosDataGridViewTextBoxColumn,
+            this.quantProteinasDataGridViewTextBoxColumn,
+            this.quantGordurasDataGridViewTextBoxColumn,
+            this.RefeicaoId});
+            this.dgwPorcoesDoDia.DataSource = this.porcaoBindingSource;
+            this.dgwPorcoesDoDia.Location = new System.Drawing.Point(12, 273);
+            this.dgwPorcoesDoDia.Name = "dgwPorcoesDoDia";
+            this.dgwPorcoesDoDia.Size = new System.Drawing.Size(830, 198);
+            this.dgwPorcoesDoDia.TabIndex = 3;
+            // 
+            // porcaoBindingSource
+            // 
+            this.porcaoBindingSource.DataSource = typeof(DiarioNutricional.Model.Porcao);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -126,41 +168,6 @@
             // 
             this.alimentoBindingSource.DataSource = typeof(DiarioNutricional.Model.Alimento);
             // 
-            // textBoxFiltroAlimento
-            // 
-            this.textBoxFiltroAlimento.Location = new System.Drawing.Point(111, 12);
-            this.textBoxFiltroAlimento.Name = "textBoxFiltroAlimento";
-            this.textBoxFiltroAlimento.Size = new System.Drawing.Size(210, 20);
-            this.textBoxFiltroAlimento.TabIndex = 1;
-            this.textBoxFiltroAlimento.TextChanged += new System.EventHandler(this.textBoxFiltroAlimento_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Filtrar por Alimento";
-            // 
-            // dgwPorcoesDoDia
-            // 
-            this.dgwPorcoesDoDia.AllowUserToAddRows = false;
-            this.dgwPorcoesDoDia.AutoGenerateColumns = false;
-            this.dgwPorcoesDoDia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwPorcoesDoDia.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.quantidadeEmGramasDataGridViewTextBoxColumn,
-            this.DescricaoAlimento,
-            this.quantEnergiaDataGridViewTextBoxColumn,
-            this.quantCarboidratosDataGridViewTextBoxColumn,
-            this.quantProteinasDataGridViewTextBoxColumn,
-            this.quantGordurasDataGridViewTextBoxColumn});
-            this.dgwPorcoesDoDia.DataSource = this.porcaoBindingSource;
-            this.dgwPorcoesDoDia.Location = new System.Drawing.Point(12, 273);
-            this.dgwPorcoesDoDia.Name = "dgwPorcoesDoDia";
-            this.dgwPorcoesDoDia.Size = new System.Drawing.Size(725, 198);
-            this.dgwPorcoesDoDia.TabIndex = 3;
-            // 
             // quantidadeEmGramasDataGridViewTextBoxColumn
             // 
             this.quantidadeEmGramasDataGridViewTextBoxColumn.DataPropertyName = "QuantidadeEmGramas";
@@ -205,26 +212,18 @@
             this.quantGordurasDataGridViewTextBoxColumn.Name = "quantGordurasDataGridViewTextBoxColumn";
             this.quantGordurasDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // porcaoBindingSource
+            // RefeicaoId
             // 
-            this.porcaoBindingSource.DataSource = typeof(DiarioNutricional.Model.Porcao);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(329, 496);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.RefeicaoId.DataPropertyName = "RefeicaoId";
+            this.RefeicaoId.HeaderText = "Refeição";
+            this.RefeicaoId.Name = "RefeicaoId";
+            this.RefeicaoId.ReadOnly = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 525);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(854, 525);
             this.Controls.Add(this.dgwPorcoesDoDia);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxFiltroAlimento);
@@ -232,9 +231,9 @@
             this.Name = "Form1";
             this.Text = "Diário Nutricional";
             ((System.ComponentModel.ISupportInitialize)(this.dgwInformacoesNutricionais)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alimentoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwPorcoesDoDia)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.porcaoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.alimentoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,7 +267,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn quantCarboidratosDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantProteinasDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantGordurasDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RefeicaoId;
     }
 }
 

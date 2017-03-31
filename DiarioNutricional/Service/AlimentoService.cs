@@ -27,7 +27,46 @@ namespace DiarioNutricional.Service
 
         public List<Alimento> FilterAlimentoByName(string nomeAlimento )
         {
-            IEnumerable<Alimento> alimentosFiltrados = _todosAlimentos.Where(a => a.Descricao.ToLowerInvariant().Contains(nomeAlimento.ToLowerInvariant()));
+            var filtros = nomeAlimento.Split(' ');
+            IEnumerable<Alimento> alimentosFiltrados = null;
+
+            switch(filtros.Count())
+            {
+                case 1:
+                    alimentosFiltrados = from alimentos in _todosAlimentos
+                                                               where alimentos.Descricao.ToLowerInvariant().Contains(filtros[0].ToLowerInvariant())
+                                                               select alimentos;
+                    break;
+                case 2:
+                    alimentosFiltrados = from alimentos in _todosAlimentos
+                                         where alimentos.Descricao.ToLowerInvariant().Contains(filtros[0].ToLowerInvariant())
+                                         && alimentos.Descricao.ToLowerInvariant().Contains(filtros[1].ToLowerInvariant())
+                                         select alimentos;
+                    break;
+                case 3:
+                    alimentosFiltrados = from alimentos in _todosAlimentos
+                                         where alimentos.Descricao.ToLowerInvariant().Contains(filtros[0].ToLowerInvariant())
+                                         && alimentos.Descricao.ToLowerInvariant().Contains(filtros[1].ToLowerInvariant())
+                                         && alimentos.Descricao.ToLowerInvariant().Contains(filtros[2].ToLowerInvariant())
+                                         select alimentos;
+                    break;
+                case 4:
+                    alimentosFiltrados = from alimentos in _todosAlimentos
+                                         where alimentos.Descricao.ToLowerInvariant().Contains(filtros[0].ToLowerInvariant())
+                                         && alimentos.Descricao.ToLowerInvariant().Contains(filtros[1].ToLowerInvariant())
+                                         && alimentos.Descricao.ToLowerInvariant().Contains(filtros[2].ToLowerInvariant())
+                                         && alimentos.Descricao.ToLowerInvariant().Contains(filtros[3].ToLowerInvariant())
+                                         select alimentos;
+                    break;
+                default:
+                    alimentosFiltrados = from alimentos in _todosAlimentos
+                                         where alimentos.Descricao.ToLowerInvariant().Contains(nomeAlimento.ToLowerInvariant())
+                                         select alimentos;
+                    break;
+            }
+
+
+            
             return alimentosFiltrados.ToList();
         }
 
