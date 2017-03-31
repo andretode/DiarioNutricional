@@ -64,7 +64,9 @@
     <Compile Include="Model\Refeicao.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AccessDatabaseRepository.cs" />
     <Compile Include="Repository\AlimentoRepository.cs" />
+    <Compile Include="Repository\PorcaoRepository.cs" />
     <Compile Include="Repository\RefeicaoRepository.cs" />
     <Compile Include="Service\AlimentoService.cs" />
     <Compile Include="Service\PorcaoService.cs" />

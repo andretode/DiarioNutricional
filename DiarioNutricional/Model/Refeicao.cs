@@ -10,8 +10,9 @@ namespace DiarioNutricional.Model
             Porcoes = new List<Porcao>();
         }
 
+        public int RefeicaoId { get; set; }
         public DateTime Data { get; private  set; }
-        public TipoRefeicao TipoDeRefeicao { get; set; }
+        public TipoRefeicao TipoRefeicaoId { get; set; }
         public List<Porcao> Porcoes { get; set; }
 
         //Seta a data sem as horas
@@ -21,5 +22,5 @@ namespace DiarioNutricional.Model
         }
     }
 
-    public enum TipoRefeicao { CafeDaManha, LancheDaManha, Almoco, LancheDaTarde, CafeDaTarde, Janta, Ceia }
+    public enum TipoRefeicao { CafeDaManha=1, LancheDaManha, Almoco, LancheDaTarde, CafeDaTarde, Janta, Ceia }
 }

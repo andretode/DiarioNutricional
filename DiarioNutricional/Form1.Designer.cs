@@ -40,13 +40,14 @@
             this.textBoxFiltroAlimento = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgwPorcoesDoDia = new System.Windows.Forms.DataGridView();
-            this.porcaoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.quantidadeEmGramasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescricaoAlimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantEnergiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantCarboidratosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantProteinasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantGordurasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.porcaoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgwInformacoesNutricionais)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alimentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwPorcoesDoDia)).BeginInit();
@@ -83,7 +84,7 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Código";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 50;
+            this.dataGridViewTextBoxColumn1.Width = 60;
             // 
             // descricaoDataGridViewTextBoxColumn
             // 
@@ -160,15 +161,13 @@
             this.dgwPorcoesDoDia.Size = new System.Drawing.Size(725, 198);
             this.dgwPorcoesDoDia.TabIndex = 3;
             // 
-            // porcaoBindingSource
-            // 
-            this.porcaoBindingSource.DataSource = typeof(DiarioNutricional.Model.Porcao);
-            // 
             // quantidadeEmGramasDataGridViewTextBoxColumn
             // 
             this.quantidadeEmGramasDataGridViewTextBoxColumn.DataPropertyName = "QuantidadeEmGramas";
-            this.quantidadeEmGramasDataGridViewTextBoxColumn.HeaderText = "QuantidadeEmGramas";
+            this.quantidadeEmGramasDataGridViewTextBoxColumn.HeaderText = "Qt. (g)";
             this.quantidadeEmGramasDataGridViewTextBoxColumn.Name = "quantidadeEmGramasDataGridViewTextBoxColumn";
+            this.quantidadeEmGramasDataGridViewTextBoxColumn.ToolTipText = "Quantidade";
+            this.quantidadeEmGramasDataGridViewTextBoxColumn.Width = 60;
             // 
             // DescricaoAlimento
             // 
@@ -176,40 +175,56 @@
             this.DescricaoAlimento.HeaderText = "Alimento";
             this.DescricaoAlimento.Name = "DescricaoAlimento";
             this.DescricaoAlimento.ReadOnly = true;
+            this.DescricaoAlimento.Width = 150;
             // 
             // quantEnergiaDataGridViewTextBoxColumn
             // 
             this.quantEnergiaDataGridViewTextBoxColumn.DataPropertyName = "QuantEnergia";
-            this.quantEnergiaDataGridViewTextBoxColumn.HeaderText = "QuantEnergia";
+            this.quantEnergiaDataGridViewTextBoxColumn.HeaderText = "Energia (kcal)";
             this.quantEnergiaDataGridViewTextBoxColumn.Name = "quantEnergiaDataGridViewTextBoxColumn";
             this.quantEnergiaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // quantCarboidratosDataGridViewTextBoxColumn
             // 
             this.quantCarboidratosDataGridViewTextBoxColumn.DataPropertyName = "QuantCarboidratos";
-            this.quantCarboidratosDataGridViewTextBoxColumn.HeaderText = "QuantCarboidratos";
+            this.quantCarboidratosDataGridViewTextBoxColumn.HeaderText = "Carboidrat. (g)";
             this.quantCarboidratosDataGridViewTextBoxColumn.Name = "quantCarboidratosDataGridViewTextBoxColumn";
             this.quantCarboidratosDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // quantProteinasDataGridViewTextBoxColumn
             // 
             this.quantProteinasDataGridViewTextBoxColumn.DataPropertyName = "QuantProteinas";
-            this.quantProteinasDataGridViewTextBoxColumn.HeaderText = "QuantProteinas";
+            this.quantProteinasDataGridViewTextBoxColumn.HeaderText = "Proteinas (g)";
             this.quantProteinasDataGridViewTextBoxColumn.Name = "quantProteinasDataGridViewTextBoxColumn";
             this.quantProteinasDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // quantGordurasDataGridViewTextBoxColumn
             // 
             this.quantGordurasDataGridViewTextBoxColumn.DataPropertyName = "QuantGorduras";
-            this.quantGordurasDataGridViewTextBoxColumn.HeaderText = "QuantGorduras";
+            this.quantGordurasDataGridViewTextBoxColumn.HeaderText = "Gorduras (g)";
             this.quantGordurasDataGridViewTextBoxColumn.Name = "quantGordurasDataGridViewTextBoxColumn";
             this.quantGordurasDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // porcaoBindingSource
+            // 
+            this.porcaoBindingSource.DataSource = typeof(DiarioNutricional.Model.Porcao);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(329, 496);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(749, 525);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dgwPorcoesDoDia);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxFiltroAlimento);
@@ -239,20 +254,21 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoDeRefeicaoDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource alimentoBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.BindingSource porcaoBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.BindingSource porcaoBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeEmGramasDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoAlimento;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantEnergiaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantCarboidratosDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantProteinasDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantGordurasDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -10,7 +10,6 @@ namespace DiarioNutricional
     public partial class Form1 : Form
     {
         public static List<Alimento> todosAlimentos;
-        private Refeicao refeicaoDoDia;
         AlimentoService alimentoService;
         RefeicaoService refeicaoService;
 
@@ -20,16 +19,15 @@ namespace DiarioNutricional
             alimentoService = AlimentoService.GetInstance();
             refeicaoService = RefeicaoService.GetInstance();
             todosAlimentos = alimentoService.GetAll();
-            refeicaoDoDia = refeicaoService.GetRefeicaoDoDia(DateTime.Now, TipoRefeicao.CafeDaManha);
 
             //preenche os componentes da interface
             dgwInformacoesNutricionais.DataSource = todosAlimentos;
-            dgwPorcoesDoDia.DataSource = refeicaoDoDia.Porcoes;
         }
 
-        public void IncluirRefeicao(Refeicao refeicao)
+        public void IncluirPorcao(TipoRefeicao tipoRefeicao, DateTime data, Porcao porcao)
         {
-            refeicaoDoDia = refeicao;
+            refeicaoService.AdicionaPorcao(tipoRefeicao, data, porcao);
+            var refeicaoDoDia = refeicaoService.GetRefeicaoDoDia(data, tipoRefeicao);
             dgwPorcoesDoDia.DataSource = refeicaoDoDia.Porcoes;
         }
 
@@ -46,6 +44,12 @@ namespace DiarioNutricional
             var formQuantidade = FormQuantidade.GetInstance(this);
             formQuantidade.alimento = alimento;
             formQuantidade.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var refeicaoRepository = RefeicaoRepository.GetInstance();
+            var refeicao = refeicaoRepository.GetByDia(DateTime.Now, 0);
         }
     }
 }

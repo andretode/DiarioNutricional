@@ -11,11 +11,11 @@ namespace DiarioNutricional.Service
     public class RefeicaoService
     {
         private static RefeicaoService _instance;
-        private List<Refeicao> _todasRefeicoes;
+        private RefeicaoRepository refeicaoRepository;
 
         private RefeicaoService()
         {
-            _todasRefeicoes = RefeicaoRepository.GetAll();
+            refeicaoRepository = RefeicaoRepository.GetInstance();
         }
 
         public static RefeicaoService GetInstance()
@@ -28,26 +28,27 @@ namespace DiarioNutricional.Service
 
         public Refeicao GetRefeicaoDoDia(DateTime data, TipoRefeicao tipoRefeicao)
         {
-            var refeicao = _todasRefeicoes.Where(r => r.Data == data.Date
-                && r.TipoDeRefeicao == tipoRefeicao).SingleOrDefault();
-            if(refeicao == null)
-                refeicao = new Refeicao();
-
+            var refeicao = refeicaoRepository.GetByDia(data, tipoRefeicao);
+            var porcaoRepository = PorcaoRepository.GetInstance();
+            refeicao.Porcoes = porcaoRepository.GetByRefeicaoId(refeicao.RefeicaoId).ToList();
             return refeicao;
         }
 
-        public Refeicao AdicionarPorcao(TipoRefeicao tipoRefeicao, DateTime data, Porcao porcao)
+        public void AdicionaPorcao(TipoRefeicao tipoRefeicao, DateTime data, Porcao porcao)
         {
-            Refeicao refeicao = _todasRefeicoes.Where(r => (r.Data == data) && (r.TipoDeRefeicao == tipoRefeicao)).SingleOrDefault();
+            Refeicao refeicao = refeicaoRepository.GetByDia(data, tipoRefeicao);
 
             if (refeicao == null)
             {
-                refeicao = new Refeicao { TipoDeRefeicao = tipoRefeicao };
+                refeicao = new Refeicao { TipoRefeicaoId = tipoRefeicao };
                 refeicao.SetData(data);
-                refeicao.Porcoes.Add(porcao);
+                refeicao.RefeicaoId = refeicaoRepository.Add(refeicao);
             }
 
-            return refeicao;
+            porcao.RefeicaoId = refeicao.RefeicaoId;
+            porcao.AlimentoId = porcao.Alimento.Codigo;
+            var porcaoRepository = PorcaoRepository.GetInstance();
+            porcaoRepository.Add(porcao);
         }
     }
 }

@@ -1,10 +1,14 @@
-﻿
+﻿using System;
+
 namespace DiarioNutricional.Model
 {
     public class Porcao
     {
-        public Alimento Alimento { get; set; }
+        public int PorcaoId { get; set; }
+        public int AlimentoId { get; set; }
+        public virtual Alimento Alimento { get; set; }
         public int QuantidadeEmGramas { get; set; }
+        public int RefeicaoId { get; set; }
 
         public string DescricaoAlimento
         {
@@ -35,7 +39,7 @@ namespace DiarioNutricional.Model
         {
             // A tabela TACO tem os valores nutricionais por cada 100g do alimento
             // assim precisamos dividir por 100 antes de multiplicar pelas gramas.
-            return valorDoNutriente / 100 * QuantidadeEmGramas;
+            return Decimal.Round(valorDoNutriente / 100 * QuantidadeEmGramas, 3);
         }
     }
 }
