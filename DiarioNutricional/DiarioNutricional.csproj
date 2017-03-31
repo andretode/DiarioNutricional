@@ -87,6 +87,7 @@
     </Compile>
     <None Include="Properties\DataSources\DiarioNutricional.Model.Alimento.datasource" />
     <None Include="Properties\DataSources\DiarioNutricional.Model.InformacoesNutricionais.datasource" />
+    <None Include="Properties\DataSources\DiarioNutricional.Model.Porcao.datasource" />
     <None Include="Properties\DataSources\DiarioNutricional.Model.Refeicao.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

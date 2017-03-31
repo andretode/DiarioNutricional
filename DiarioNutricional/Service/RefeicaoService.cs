@@ -26,9 +26,14 @@ namespace DiarioNutricional.Service
             return _instance;
         }
 
-        public List<Refeicao> GetTodasRefeicoes()
+        public Refeicao GetRefeicaoDoDia(DateTime data, TipoRefeicao tipoRefeicao)
         {
-            return _todasRefeicoes;
+            var refeicao = _todasRefeicoes.Where(r => r.Data == data.Date
+                && r.TipoDeRefeicao == tipoRefeicao).SingleOrDefault();
+            if(refeicao == null)
+                refeicao = new Refeicao();
+
+            return refeicao;
         }
 
         public Refeicao AdicionarPorcao(TipoRefeicao tipoRefeicao, DateTime data, Porcao porcao)

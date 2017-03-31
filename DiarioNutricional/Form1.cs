@@ -9,20 +9,28 @@ namespace DiarioNutricional
 {
     public partial class Form1 : Form
     {
-        List<Alimento> todosAlimentos;
-        List<Refeicao> todasRefeicoes;
+        public static List<Alimento> todosAlimentos;
+        private Refeicao refeicaoDoDia;
         AlimentoService alimentoService;
+        RefeicaoService refeicaoService;
 
         public Form1()
         {
             InitializeComponent();
             alimentoService = AlimentoService.GetInstance();
+            refeicaoService = RefeicaoService.GetInstance();
             todosAlimentos = alimentoService.GetAll();
+            refeicaoDoDia = refeicaoService.GetRefeicaoDoDia(DateTime.Now, TipoRefeicao.CafeDaManha);
+
+            //preenche os componentes da interface
+            dgwInformacoesNutricionais.DataSource = todosAlimentos;
+            dgwPorcoesDoDia.DataSource = refeicaoDoDia.Porcoes;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        public void IncluirRefeicao(Refeicao refeicao)
         {
-            dgwInformacoesNutricionais.DataSource = todosAlimentos;
+            refeicaoDoDia = refeicao;
+            dgwPorcoesDoDia.DataSource = refeicaoDoDia.Porcoes;
         }
 
         private void textBoxFiltroAlimento_TextChanged(object sender, EventArgs e)
@@ -35,14 +43,9 @@ namespace DiarioNutricional
         {
             int codigo = (int) dgwInformacoesNutricionais.Rows[e.RowIndex].Cells[0].Value;
             var alimento = alimentoService.GetById(codigo);
-            var formQuantidade = FormQuantidade.GetInstance();
+            var formQuantidade = FormQuantidade.GetInstance(this);
             formQuantidade.alimento = alimento;
             formQuantidade.Show();
-        }
-
-        private void dgwInformacoesNutricionais_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //nada
         }
     }
 }

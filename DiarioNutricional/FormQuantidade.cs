@@ -1,4 +1,5 @@
 ﻿using DiarioNutricional.Model;
+using DiarioNutricional.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace DiarioNutricional
 {
     public partial class FormQuantidade : Form
     {
+        private static Form1 _formPrincipal;
         private static FormQuantidade _instance;
         public Alimento alimento { get; set; }
         
@@ -21,10 +23,12 @@ namespace DiarioNutricional
             InitializeComponent();
         }
 
-        public static FormQuantidade GetInstance()
+        public static FormQuantidade GetInstance(Form1 formPrincipal)
         {
             if(_instance == null)
                 _instance = new FormQuantidade();
+
+            _formPrincipal = formPrincipal;
 
             return _instance;
         }
@@ -45,6 +49,22 @@ namespace DiarioNutricional
         private void FormQuantidade_Shown(object sender, EventArgs e)
         {
             labelDescricaoAlimento.Text = alimento.Descricao;
+        }
+
+        private void buttonInserir_Click(object sender, EventArgs e)
+        {
+            var refeicaoService = RefeicaoService.GetInstance();
+            var refeicao = refeicaoService.GetRefeicaoDoDia(DateTime.Now, 
+                (TipoRefeicao)campoTipoRefeicao.SelectedItem);
+
+            var porcao = new Porcao();
+            porcao.Alimento = alimento;
+            porcao.QuantidadeEmGramas = (int) campoQuantidade.Value;
+
+            refeicao.Porcoes.Add(porcao);
+            _formPrincipal.IncluirRefeicao(refeicao);
+            
+            this.Close();
         }
     }
 }
